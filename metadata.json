@@ -1,0 +1,6 @@
+{
+  "name": "EasyLearner",
+  "description": "Project-based peer mentoring platform with step-by-step learning roadmaps, mentor matching, and a virtual time-credit system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
