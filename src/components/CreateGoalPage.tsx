@@ -32,16 +32,38 @@ export const CreateGoalPage: React.FC = () => {
     ? generateRoadmapForGoal(title, category, skillLevel)
     : [];
 
-  const handlePrefillDemo = () => {
-    setTitle('I want to build a line-following car in 7 days');
-    setDescription(
-      'Design, wire, and code a 2-wheel drive autonomous robot using an Arduino Uno, L298N motor controller, and infrared reflection sensors that traces a black line track reliably.'
-    );
-    setCategory('Robotics & Hardware');
-    setSkillLevel('Beginner');
-    setDesiredCompletionDate('2026-09-25');
-    setPreferredLanguage('English');
-    setWeeklyAvailabilityHours(6);
+  const handlePrefillDemo = (type: 'robotics' | 'ai' | 'web' = 'robotics') => {
+    if (type === 'robotics') {
+      setTitle('I want to build a line-following car in 7 days');
+      setDescription(
+        'Design, wire, and code a 2-wheel drive autonomous robot using an Arduino Uno, L298N motor controller, and infrared reflection sensors that traces a black line track reliably.'
+      );
+      setCategory('Robotics & Hardware');
+      setSkillLevel('Beginner');
+      setDesiredCompletionDate('2026-09-25');
+      setPreferredLanguage('English');
+      setWeeklyAvailabilityHours(6);
+    } else if (type === 'ai') {
+      setTitle('Build a real-time face tracking camera bot');
+      setDescription(
+        'Train an OpenCV computer vision model on a Raspberry Pi to track human faces and orient a pan-tilt servo mechanism autonomously.'
+      );
+      setCategory('AI & Data Science');
+      setSkillLevel('Intermediate');
+      setDesiredCompletionDate('2026-10-05');
+      setPreferredLanguage('English');
+      setWeeklyAvailabilityHours(8);
+    } else {
+      setTitle('Build a live hardware telemetry web dashboard');
+      setDescription(
+        'Construct a full-stack React and WebSocket dashboard to visualize live sensor readings and control robot motors remotely in real-time.'
+      );
+      setCategory('Web & Mobile Development');
+      setSkillLevel('Beginner');
+      setDesiredCompletionDate('2026-09-30');
+      setPreferredLanguage('English');
+      setWeeklyAvailabilityHours(7);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -77,16 +99,39 @@ export const CreateGoalPage: React.FC = () => {
           </p>
         </div>
 
-        {/* 1-Click Demo Pre-fill */}
-        <button
-          id="prefill-demo-goal-btn"
-          type="button"
-          onClick={handlePrefillDemo}
-          className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-700 font-semibold text-xs transition-colors cursor-pointer shrink-0"
-        >
-          <Zap className="w-4 h-4 text-purple-600" />
-          <span>Load Demo: Line-Following Car</span>
-        </button>
+        {/* 1-Click Multi-Domain Demo Pre-fills */}
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            id="prefill-robotics-btn"
+            type="button"
+            onClick={() => handlePrefillDemo('robotics')}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-700 font-semibold text-xs transition-colors cursor-pointer"
+            title="Load Robotics Project Goal"
+          >
+            <Zap className="w-3.5 h-3.5 text-purple-600" />
+            <span>🚗 Line-Following Car</span>
+          </button>
+          <button
+            id="prefill-ai-btn"
+            type="button"
+            onClick={() => handlePrefillDemo('ai')}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-blue-50 hover:bg-blue-100 border border-blue-200 text-blue-700 font-semibold text-xs transition-colors cursor-pointer"
+            title="Load AI & Computer Vision Goal"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+            <span>👁️ Face-Tracking AI</span>
+          </button>
+          <button
+            id="prefill-web-btn"
+            type="button"
+            onClick={() => handlePrefillDemo('web')}
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-700 font-semibold text-xs transition-colors cursor-pointer"
+            title="Load Web Dashboard Goal"
+          >
+            <Layers className="w-3.5 h-3.5 text-emerald-600" />
+            <span>💻 IoT Telemetry Web App</span>
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">

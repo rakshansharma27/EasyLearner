@@ -552,6 +552,36 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
           : s
       )
     );
+
+    // If learner sends a message, have the mentor provide quick realistic feedback after a brief delay
+    if (activeRole === 'learner') {
+      setTimeout(() => {
+        const session = sessions.find((s) => s.id === sessionId);
+        const mentorName = session?.mentorName || 'Dr. Marcus Chen';
+        const mentorId = session?.mentorId || 'mentor-marcus';
+
+        const mentorReplies = [
+          `Great progress! Double check your PWM pins 5 and 6, and make sure your common ground with the battery is secure.`,
+          `Checked your setup! The sensor readings look optimal now. You're ready to advance to the next step!`,
+          `Spot on! You can now adjust your motor speed differential to smooth out the turning on tight corners.`,
+        ];
+        const randomReply = mentorReplies[Math.floor(Math.random() * mentorReplies.length)];
+
+        const mentorMsg = {
+          id: `msg-reply-${Date.now()}`,
+          senderId: mentorId,
+          senderName: mentorName,
+          text: randomReply,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        };
+
+        setSessions((prev) =>
+          prev.map((s) =>
+            s.id === sessionId ? { ...s, messages: [...s.messages, mentorMsg] } : s
+          )
+        );
+      }, 900);
+    }
   };
 
   // 9. Reset to default demo scenario

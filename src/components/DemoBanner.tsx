@@ -87,37 +87,39 @@ export const DemoBanner: React.FC = () => {
   ];
 
   return (
-    <div className="bg-gradient-to-r from-blue-900 via-indigo-900 to-purple-900 text-white border-b border-indigo-700/50 shadow-inner">
+    <div className="w-full max-w-full overflow-hidden bg-slate-950/95 text-white border-b border-slate-800/80 backdrop-blur-xl shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="flex h-2 w-2 relative">
+          <div className="flex items-center gap-3">
+            <span className="flex h-2.5 w-2.5 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
             </span>
-            <span className="text-xs font-bold tracking-wide uppercase text-indigo-200 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-              Demo Walkthrough Guide
-            </span>
-            <span className="text-xs text-indigo-300 hidden md:inline">
-              “I want to build a line-following car in 7 days”
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-[11px] font-extrabold tracking-wider uppercase bg-gradient-to-r from-amber-400 to-amber-200 bg-clip-text text-transparent flex items-center gap-1.5">
+                <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                Judge Demo Walkthrough
+              </span>
+              <span className="text-[11px] text-slate-400 hidden md:inline border-l border-slate-800 pl-2">
+                Scenario: <span className="text-slate-200 font-semibold">“I want to build a line-following car in 7 days”</span>
+              </span>
+            </div>
           </div>
 
           <div className="flex items-center gap-2">
             <button
               id="reset-demo-scenario-btn"
               onClick={resetToDemo}
-              className="flex items-center gap-1 px-2.5 py-1 rounded bg-indigo-800/80 hover:bg-indigo-700 text-[11px] font-medium text-indigo-100 border border-indigo-600 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1 rounded-lg bg-slate-900 hover:bg-slate-800 text-[11px] font-bold text-slate-300 border border-slate-700/80 transition-all cursor-pointer shadow-xs"
               title="Reset state to initial sample scenario"
             >
-              <RotateCcw className="w-3 h-3 text-indigo-300" />
-              <span>Reset Scenario</span>
+              <RotateCcw className="w-3 h-3 text-slate-400" />
+              <span>Reset State</span>
             </button>
 
             <button
               onClick={() => setCollapsed(!collapsed)}
-              className="p-1 text-indigo-300 hover:text-white"
+              className="p-1 text-slate-400 hover:text-white rounded-md hover:bg-slate-800/80 transition-colors cursor-pointer"
               title={collapsed ? 'Expand walkthrough' : 'Collapse walkthrough'}
             >
               {collapsed ? <ChevronDown className="w-4 h-4" /> : <ChevronUp className="w-4 h-4" />}
@@ -126,7 +128,7 @@ export const DemoBanner: React.FC = () => {
         </div>
 
         {!collapsed && (
-          <div className="mt-2 pt-2 border-t border-indigo-800/60 overflow-x-auto no-scrollbar pb-1">
+          <div className="mt-2 pt-2 border-t border-slate-800/80 overflow-x-auto no-scrollbar pb-1">
             <div className="flex items-center gap-1.5 min-w-max">
               {demoSteps.map((step, idx) => (
                 <React.Fragment key={step.num}>
@@ -137,21 +139,27 @@ export const DemoBanner: React.FC = () => {
                       }
                       setCurrentView(step.targetView as any);
                     }}
-                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all text-left ${
+                    className={`group flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-semibold transition-all text-left cursor-pointer ${
                       step.isCurrent
-                        ? 'bg-amber-400 text-slate-950 font-bold shadow-xs'
+                        ? 'bg-amber-400 text-slate-950 font-extrabold shadow-sm ring-2 ring-amber-300/40'
                         : step.isDone
-                        ? 'bg-emerald-950/70 border border-emerald-500/40 text-emerald-200 hover:bg-emerald-900/80'
-                        : 'bg-indigo-950/60 border border-indigo-700/50 text-indigo-200 hover:bg-indigo-800/60'
+                        ? 'bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 hover:bg-emerald-900/60'
+                        : 'bg-slate-900/90 border border-slate-800 text-slate-300 hover:bg-slate-800 hover:text-white'
                     }`}
                   >
-                    <span className="w-4 h-4 rounded-full bg-black/20 flex items-center justify-center text-[10px] font-bold">
-                      {step.isDone ? <CheckCircle2 className="w-3 h-3 text-emerald-400" /> : step.num}
+                    <span className={`w-4 h-4 rounded-full flex items-center justify-center text-[10px] font-black ${
+                      step.isCurrent
+                        ? 'bg-slate-950 text-amber-400'
+                        : step.isDone
+                        ? 'bg-emerald-500 text-slate-950'
+                        : 'bg-slate-800 text-slate-400 group-hover:text-slate-200'
+                    }`}>
+                      {step.isDone ? <CheckCircle2 className="w-3.5 h-3.5" /> : step.num}
                     </span>
                     <span>{step.title}</span>
                   </button>
                   {idx < demoSteps.length - 1 && (
-                    <ArrowRight className="w-3 h-3 text-indigo-400/60 shrink-0" />
+                    <ArrowRight className="w-3 h-3 text-slate-600 shrink-0" />
                   )}
                 </React.Fragment>
               ))}

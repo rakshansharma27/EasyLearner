@@ -156,49 +156,52 @@ export const SessionChatPage: React.FC = () => {
       )}
 
       {/* Top Banner: Active Session Context & Live Timer */}
-      <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="space-y-1">
-          <div className="flex items-center gap-2">
-            <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full ${
+      <div className="p-6 rounded-3xl bg-white border border-slate-200/90 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-5">
+        <div className="space-y-1.5">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className={`text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full flex items-center gap-1.5 ${
               isCompleted
-                ? 'bg-slate-100 text-slate-600'
-                : 'bg-emerald-100 text-emerald-800 animate-pulse'
+                ? 'bg-slate-100 text-slate-600 border border-slate-200'
+                : 'bg-emerald-50 text-emerald-800 border border-emerald-200 animate-pulse'
             }`}>
-              {isCompleted ? 'Session Concluded' : '● Live 1-on-1 Session'}
+              <span className={`w-1.5 h-1.5 rounded-full ${isCompleted ? 'bg-slate-400' : 'bg-emerald-500'}`} />
+              {isCompleted ? 'Session Concluded' : 'Live 1-on-1 Mentorship'}
             </span>
-            <span className="text-xs text-slate-400">•</span>
-            <span className="text-xs font-semibold text-slate-600">{activeSession.goalTitle}</span>
+            <span className="text-xs text-slate-300">•</span>
+            <span className="text-xs font-bold text-slate-600 px-2 py-0.5 rounded-md bg-slate-100/80">
+              {activeSession.goalTitle}
+            </span>
           </div>
 
-          <h1 className="text-xl font-bold text-slate-900">
+          <h1 className="text-xl sm:text-2xl font-black text-slate-900 font-display">
             Mentoring Room: <span className="text-blue-600">{activeSession.learnerName}</span> & <span className="text-purple-600">{activeSession.mentorName}</span>
           </h1>
-          <p className="text-xs text-slate-500">
-            Topic: Line-Following Car • Step 3: Program the motor driver & PWM speeds
+          <p className="text-xs text-slate-500 font-medium">
+            Active Milestone: <span className="font-semibold text-slate-700">Step 3 — Motor driver logic & differential PWM steering</span>
           </p>
         </div>
 
         {/* Live Session Timer & Action */}
-        <div className="flex items-center gap-4 bg-slate-50 p-3 rounded-2xl border border-slate-200">
-          <div className="text-center">
-            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              SESSION TIMER
+        <div className="flex items-center gap-4 bg-slate-900 text-white p-3.5 rounded-2xl border border-slate-800 shadow-md">
+          <div className="text-center px-1">
+            <div className="text-[10px] font-extrabold tracking-wider uppercase text-slate-400">
+              Session Countdown
             </div>
-            <div className="text-2xl font-black font-mono tracking-tight text-slate-900">
+            <div className="text-2xl font-black font-mono tracking-wider text-amber-400">
               {formatTimer(timerSeconds)}
             </div>
           </div>
 
-          <div className="flex items-center gap-1.5 border-l border-slate-200 pl-3">
+          <div className="flex items-center gap-2 border-l border-slate-800 pl-3">
             {!isCompleted && (
               <>
                 <button
                   id="toggle-session-timer-btn"
                   onClick={() => setIsTimerRunning(!isTimerRunning)}
-                  className={`p-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
+                  className={`p-2 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                     isTimerRunning
-                      ? 'bg-amber-100 text-amber-800 hover:bg-amber-200'
-                      : 'bg-blue-600 text-white hover:bg-blue-700'
+                      ? 'bg-amber-400 text-slate-950 hover:bg-amber-300'
+                      : 'bg-blue-600 text-white hover:bg-blue-500 shadow-xs'
                   }`}
                   title={isTimerRunning ? 'Pause Timer' : 'Start Timer'}
                 >
@@ -210,7 +213,7 @@ export const SessionChatPage: React.FC = () => {
                     setIsTimerRunning(false);
                     setTimerSeconds(30 * 60);
                   }}
-                  className="p-2 rounded-xl text-slate-500 hover:bg-slate-200 transition-colors"
+                  className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800 transition-colors cursor-pointer"
                   title="Reset to 30 mins"
                 >
                   <RotateCcw className="w-4 h-4" />
@@ -222,15 +225,15 @@ export const SessionChatPage: React.FC = () => {
               <button
                 id="complete-session-btn"
                 onClick={() => setShowCompleteModal(true)}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold shadow-xs transition-colors cursor-pointer ml-1"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-extrabold shadow-sm transition-all cursor-pointer ml-1"
               >
                 <CheckCircle2 className="w-4 h-4" />
-                <span>Complete Session</span>
+                <span>End Session</span>
               </button>
             ) : (
-              <div className="px-3 py-1.5 rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-bold flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                <span>Credits Exchanged</span>
+              <div className="px-3 py-1.5 rounded-xl bg-emerald-950/80 text-emerald-300 border border-emerald-500/30 text-xs font-bold flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <span>Settled (1 Credit)</span>
               </div>
             )}
           </div>
@@ -238,31 +241,38 @@ export const SessionChatPage: React.FC = () => {
       </div>
 
       {/* Chat Container */}
-      <div className="rounded-2xl bg-white border border-slate-200 shadow-xs overflow-hidden flex flex-col h-[520px]">
+      <div className="rounded-3xl bg-white border border-slate-200/90 shadow-sm overflow-hidden flex flex-col h-[530px]">
         {/* Messages Stream */}
-        <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-slate-50/40">
+        <div className="flex-1 p-6 overflow-y-auto space-y-4 bg-slate-50/50">
           <div className="text-center">
-            <span className="text-[11px] px-3 py-1 rounded-full bg-slate-100 text-slate-500 border border-slate-200">
-              Session started today • 1 Time Credit reserved for 30 minutes of mentoring
+            <span className="text-[11px] font-medium px-3.5 py-1 rounded-full bg-white text-slate-500 border border-slate-200/80 shadow-2xs">
+              🔒 Encrypted peer session • 1 Time Credit reserved for 30 minutes
             </span>
           </div>
 
           {activeSession.messages.map((msg) => {
             const isMe = msg.senderId === currentUser.id;
+            const isMentorMsg = msg.senderId.includes('mentor');
+
             return (
               <div
                 key={msg.id}
                 className={`flex flex-col ${isMe ? 'items-end' : 'items-start'}`}
               >
                 <div className="flex items-center gap-2 mb-1 px-1">
-                  <span className="text-[11px] font-bold text-slate-700">{msg.senderName}</span>
+                  <span className="text-[11px] font-bold text-slate-800">{msg.senderName}</span>
+                  <span className={`text-[9px] font-bold px-1.5 py-0.2 rounded-full uppercase ${
+                    isMentorMsg ? 'bg-purple-100 text-purple-800' : 'bg-blue-100 text-blue-800'
+                  }`}>
+                    {isMentorMsg ? 'Mentor' : 'Learner'}
+                  </span>
                   <span className="text-[10px] text-slate-400">{msg.timestamp}</span>
                 </div>
                 <div
-                  className={`max-w-lg p-3.5 rounded-2xl text-xs leading-relaxed shadow-xs ${
+                  className={`max-w-lg p-3.5 rounded-2xl text-xs leading-relaxed shadow-2xs ${
                     isMe
-                      ? 'bg-blue-600 text-white rounded-tr-none'
-                      : 'bg-white text-slate-800 border border-slate-200 rounded-tl-none'
+                      ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-tr-none'
+                      : 'bg-white text-slate-800 border border-slate-200/90 rounded-tl-none ring-1 ring-slate-950/5'
                   }`}
                 >
                   {msg.text}

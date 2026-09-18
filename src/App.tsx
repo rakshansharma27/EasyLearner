@@ -17,7 +17,7 @@ const AppContent: React.FC = () => {
   const { currentView, setCurrentView } = useApp();
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-blue-100 selection:text-blue-900 font-sans">
+    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-blue-100 selection:text-blue-900 font-sans overflow-x-hidden w-full max-w-full">
       {/* Interactive Demo Walkthrough Banner */}
       <DemoBanner />
 
